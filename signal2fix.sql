@@ -139,8 +139,8 @@ CREATE TABLE ImageSignalement(
 	FOREIGN KEY (idSignalement) REFERENCES signalement(id)
 );
 
-CREATE VIEW view_signalementdetails AS SELECT s.id AS idSignalement,s.idType,ts.type,ts.couleur,s.iduser,u.nom,u.prenom,s.idRegion,r.nom AS region,s.idStatus,st.nom AS status,s.description,s.dateSignalement,s.heureSignalement,s.latitude,s.longitude FROM Signalement s JOIN TypeSignalement ts ON s.idType=ts.id JOIN Region r ON s.idRegion=r.id
-JOIN status st ON s.idStatus=st.id JOIN auth_user u ON s.iduser=u.id;
+CREATE OR REPLACE VIEW view_signalementdetails AS SELECT s.id AS idSignalement,s.idType,ts.type,ts.couleur,s.iduser,u.nom,u.prenom,s.idRegion,r.nom AS region,s.idStatus,st.nom AS status,s.description,s.dateSignalement,s.heureSignalement,s.latitude,s.longitude FROM Signalement s JOIN TypeSignalement ts ON s.idType=ts.id JOIN Region r ON s.idRegion=r.id 
+JOIN status st ON s.idStatus=st.id JOIN auth_user u ON s.iduser=u.id ORDER BY dateSignalement DESC,heureSignalement DESC;
 
 -- CREATE VIEW view_responsable_region AS SELECT resp.id AS idresponsable,reg.id AS idregion, reg.nom AS region,resp.nom,resp.prenom,resp.email FROM responsable AS resp JOIN region AS reg ON resp.idregion=reg.id;
 
